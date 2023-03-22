@@ -1,0 +1,30 @@
+on:
+  workflow_call:
+    inputs:
+      deploy:
+        required: true
+        type: boolean
+
+jobs:
+  run:
+    name: Deploy Application
+    runs-on: ubuntu-latest
+    container: node:18 # keep version synced w/ serverless.yaml file
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Install serverless framework
+        run: npm install -g serverless
+      - name: Test
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        if: inputs.deploy == true
+        run: npm run deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.SERVERLESS_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.SERVERLESS_AWS_SECRET_ACCESS_KEY }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

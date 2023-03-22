@@ -1,0 +1,26 @@
+service: gpuci-serverless-rapids-runners
+
+provider:
+  name: aws
+  region: us-east-2
+  memorySize: 1024
+  stage: dev
+  runtime: nodejs18.x # keep version synced w/ GHA workflows
+  logRetentionInDays: 60
+  apiGateway:
+    shouldStartNameWithService: true
+  deploymentBucket:
+    name: rapids-serverless-deployments
+  environment:
+    NODE_ENV: production
+    LOG_FORMAT: json
+    LOG_LEVEL: debug
+    PRIVATE_KEY: ${env:PRIVATE_KEY}
+
+functions:
+  lambdaFn:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          path: /
+          method: POST

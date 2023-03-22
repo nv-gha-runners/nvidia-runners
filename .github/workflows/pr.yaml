@@ -1,0 +1,13 @@
+name: pr
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    uses: ./.github/workflows/build_test_deploy.yaml
+    with:
+      deploy: false

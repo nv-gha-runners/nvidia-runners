@@ -1,0 +1,22 @@
+name: deploy-lambda
+
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+    paths:
+      - "src/**"
+      - "package*.json"
+      - "serverless.yaml"
+      - ".github/workflows/deploy.yaml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_test_deploy:
+    uses: ./.github/workflows/build_test_deploy.yaml
+    secrets: inherit
+    with:
+      deploy: true
