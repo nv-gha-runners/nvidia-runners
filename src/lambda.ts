@@ -40,16 +40,7 @@ export const handler = async (
   const runnerGroupName = "rapids-runners";
   logger("start");
 
-  if (ghEvent !== "installation") {
-    return {
-      body: "Only installation webhook events are processed",
-      statusCode: 200,
-    };
-  }
-
-  const octokit = makeOctokit(payload);
-
-  if (payload.action === "created") {
+  if (ghEvent === "installation" && payload.action === "created") {
     const resp = await authorizer({
       allowedOrgs: ["rapidsai", "nv-morpheus", "nvidia", "nv-legate"],
       event,
@@ -61,6 +52,8 @@ export const handler = async (
         body: resp.msg,
       };
     }
+
+    const octokit = makeOctokit(payload);
     logger("creating runner group");
 
     await octokit.request("POST /orgs/{org}/actions/runner-groups", {
@@ -76,46 +69,8 @@ export const handler = async (
     };
   }
 
-  if (payload.action === "deleted") {
-    logger("deleting runner group");
-
-    const { data: response } = await octokit.request(
-      "GET /orgs/{org}/actions/runner-groups",
-      {
-        org: payload.installation.account.login,
-        per_page: 100,
-      }
-    );
-
-    const runnerGroups = response.runner_groups;
-
-    const rapidsRunnerGroup = runnerGroups.find(
-      (grp) => grp.name === runnerGroupName
-    );
-
-    if (!rapidsRunnerGroup) {
-      return {
-        body: `App was deleted but no runner group named '${runnerGroupName}' was found to delete.`,
-        statusCode: 200,
-      };
-    }
-
-    await octokit.request(
-      "DELETE /orgs/{org}/actions/runner-groups/{group_id}",
-      {
-        org: payload.installation.account.login,
-        group_id: rapidsRunnerGroup.id,
-      }
-    );
-
-    return {
-      body: `App and '${runnerGroupName}' runner group were deleted.`,
-      statusCode: 200,
-    };
-  }
-
   return {
-    body: "Catch-all. No further processing necessary for this webhook type.",
+    body: "No further processing necessary for this webhook type.",
     statusCode: 200,
   };
 };

@@ -1,7 +1,7 @@
 import { makeLambdaEvent } from "../lambda_event";
 
 type ArgType = {
-  action: "deleted" | "created" | "updated";
+  action: "deleted" | "created";
   orgName?: string;
 };
 

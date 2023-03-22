@@ -2,14 +2,9 @@
 
 This repository is the TypeScript-application backend for the `rapids-runners` GitHub application.
 
-The TypeScript application performs some actions when the GitHub application is installed/uninstalled from an organization:
+When the GitHub application is installed, the `rapids-runners` group is automatically created in the organization.
 
-| Event                             | Action                                                          |
-| --------------------------------- | --------------------------------------------------------------- |
-| GitHub Application Installation   | Creates the `rapids-runners` runner group in the organization   |
-| GitHub Application Uninstallation | Deletes the `rapids-runners` runner group from the organization |
-
-When the `rapids-runners` runner group is created, it is configured to:
+The default settings for the `rapids-runners` runner group are:
 
 - Enable runners on public repositories
 - Allow runners to be used on selected repositories (though no repositories are selected by default)

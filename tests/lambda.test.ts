@@ -9,7 +9,6 @@ const mockAuthorizer = jest
   .mockName("authorizer");
 
 import { handler } from "../src/lambda";
-import { makeResponse } from "./responses/get_runner_groups";
 import { makeInstallationEvent } from "./webhooks/installation";
 
 jest.mock("@octokit/rest", () => ({
@@ -91,60 +90,16 @@ describe("default", () => {
     });
   });
 
-  test("installation deleted | runner group not found", async () => {
-    mockRequest.mockResolvedValueOnce(makeResponse("random-group"));
-    const result = await handler(
-      makeInstallationEvent({
-        action: "deleted",
-      })
-    );
-
-    expect(mockRequest).toHaveBeenCalledTimes(1);
-    expect(result).toStrictEqual({
-      body: "App was deleted but no runner group named 'rapids-runners' was found to delete.",
-      statusCode: 200,
-    });
-  });
-
-  test("installation deleted | runner group found", async () => {
-    mockRequest.mockResolvedValueOnce(makeResponse("rapids-runners"));
-    const result = await handler(
-      makeInstallationEvent({
-        action: "deleted",
-      })
-    );
-
-    expect(mockRequest).toHaveBeenCalledTimes(2);
-    expect(result).toStrictEqual({
-      body: "App and 'rapids-runners' runner group were deleted.",
-      statusCode: 200,
-    });
-  });
-
-  test("installation updated (invalid action)", async () => {
-    const result = await handler(
-      makeInstallationEvent({
-        action: "updated",
-      })
-    );
-
-    expect(mockRequest).toHaveBeenCalledTimes(0);
-    expect(result).toStrictEqual({
-      body: "Catch-all. No further processing necessary for this webhook type.",
-      statusCode: 200,
-    });
-  });
-
-  test("unprocessed event type", async () => {
+  test("unprocessed event", async () => {
     let event = makeInstallationEvent({
-      action: "updated",
+      action: "created",
     });
     event.headers["X-GitHub-Event"] = "issue_comment";
     const result = await handler(event);
 
     expect(mockRequest).toHaveBeenCalledTimes(0);
     expect(result).toStrictEqual({
-      body: "Only installation webhook events are processed",
+      body: "No further processing necessary for this webhook type.",
       statusCode: 200,
     });
   });
