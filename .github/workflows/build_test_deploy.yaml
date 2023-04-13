@@ -11,6 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     container: node:18 # keep version synced w/ serverless.yaml file
     steps:
+      - name: Get AWS credentials
+        if: inputs.deploy == true
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ vars.SERVERLESS_AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install npm dependencies
@@ -25,6 +31,4 @@ jobs:
         if: inputs.deploy == true
         run: npm run deploy
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.SERVERLESS_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.SERVERLESS_AWS_SECRET_ACCESS_KEY }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
