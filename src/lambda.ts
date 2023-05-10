@@ -42,7 +42,15 @@ export const handler = async (
 
   if (ghEvent === "installation" && payload.action === "created") {
     const resp = await authorizer({
-      allowedOrgs: ["rapidsai", "nv-morpheus", "nvidia", "nv-legate"],
+      allowedOrgs: [
+        "dask-contrib",
+        "dask",
+        "numba",
+        "nv-legate",
+        "nv-morpheus",
+        "nvidia",
+        "rapidsai",
+      ],
       event,
     });
 
