@@ -3,6 +3,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { Octokit } from "@octokit/rest";
 import { createAppAuth } from "@octokit/auth-app";
 import { retry } from "@octokit/plugin-retry";
+import { throttling } from "@octokit/plugin-throttling";
 
 const makeLogger = (obj: any) => (msg: string) => {
   console.log(
@@ -18,7 +19,7 @@ const makeOctokit = (payload: any) => {
     throw new Error("No private key found in environment");
   }
 
-  const MyOctokit = Octokit.plugin(retry);
+  const MyOctokit = Octokit.plugin(retry, throttling);
   return new MyOctokit({
     authStrategy: createAppAuth,
     auth: {
