@@ -27,6 +27,14 @@ const makeOctokit = (payload: any) => {
       privateKey: Buffer.from(privateKey, "base64").toString(),
       installationId,
     },
+    throttle: {
+      onRateLimit: (retryAfter, options, octokit, retryCount) => {
+        return true;
+      },
+      onSecondaryRateLimit: (retryAfter, options, octokit) => {
+        return true;
+      },
+    },
     log: console,
   });
 };
