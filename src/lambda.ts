@@ -56,6 +56,7 @@ export const handler = async (
         "dask-contrib",
         "dask",
         "numba",
+        "nv-gha-runners",
         "nv-legate",
         "nv-morpheus",
         "nvidia-merlin",
