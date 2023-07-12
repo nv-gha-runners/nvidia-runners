@@ -24,7 +24,7 @@
     "@octokit/plugin-retry": "^4.1.3",
     "@octokit/plugin-throttling": "^6.0.0",
     "@octokit/rest": "^19.0.7",
-    "webhook-authorizer": "github:rapidsai/webhook-authorizer#68808c6a9eb8c52f20a4129e7b87a1a7b572e149"
+    "webhook-authorizer": "github:nv-gha-runners/webhook-authorizer#9c0ca21ff4517d712e1ab3e25f7ff807d0f519da"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.114",
