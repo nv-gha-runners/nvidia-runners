@@ -10,7 +10,7 @@ provider:
   apiGateway:
     shouldStartNameWithService: true
   deploymentBucket:
-    name: rapidsai-serverless-deployments
+    name: ghar-serverless-deployments
   environment:
     NODE_ENV: production
     LOG_FORMAT: json
