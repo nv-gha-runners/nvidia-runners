@@ -1,4 +1,4 @@
-service: rapids-runners
+service: nvidia-runners
 
 provider:
   name: aws
