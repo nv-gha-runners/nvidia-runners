@@ -6,7 +6,7 @@ import { retry } from "@octokit/plugin-retry";
 
 const makeLogger = (obj: any) => (msg: string) => {
   console.log(
-    JSON.stringify({ "@msg": msg, "@app": "rapids-runners", ...obj })
+    JSON.stringify({ "@msg": msg, "@app": "nvidia-runners", ...obj })
   );
 };
 
