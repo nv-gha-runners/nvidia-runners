@@ -37,8 +37,7 @@ export const handler = async (
   const ghEvent = event.headers["X-GitHub-Event"] as string;
   const lambdaEvent = { "@gh_event": ghEvent, ...payload };
   const logger = makeLogger(lambdaEvent);
-  // TODO: inform necessary organizations once `rapids-runners` group is removed
-  const runnerGroups = ["rapids-runners", "nvidia-runners"];
+  const runnerGroupName = "rapids-runners";
   logger("start");
 
   if (ghEvent === "installation" && payload.action === "created") {
@@ -67,19 +66,15 @@ export const handler = async (
     const octokit = makeOctokit(payload);
     logger("creating runner group");
 
-    await Promise.all(
-      runnerGroups.map((runnerGroupName) =>
-        octokit.request("POST /orgs/{org}/actions/runner-groups", {
-          org: payload.installation.account.login,
-          name: runnerGroupName,
-          visibility: "selected",
-          allows_public_repositories: true,
-        })
-      )
-    );
+    await octokit.request("POST /orgs/{org}/actions/runner-groups", {
+      org: payload.installation.account.login,
+      name: runnerGroupName,
+      visibility: "selected",
+      allows_public_repositories: true,
+    });
 
     return {
-      body: `New installation detected. Runner groups created.`,
+      body: `New installation detected. '${runnerGroupName}' group created.`,
       statusCode: 200,
     };
   }

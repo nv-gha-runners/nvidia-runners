@@ -56,22 +56,15 @@ describe("default", () => {
       })
     );
 
-    expect(mockRequest).toHaveBeenCalledTimes(2);
+    expect(mockRequest).toHaveBeenCalledTimes(1);
     expect(mockRequest.mock.calls[0][1]).toStrictEqual({
       org: "rapidsai",
       name: "rapids-runners",
       visibility: "selected",
       allows_public_repositories: true,
     });
-
-    expect(mockRequest.mock.calls[1][1]).toStrictEqual({
-      org: "rapidsai",
-      name: "nvidia-runners",
-      visibility: "selected",
-      allows_public_repositories: true,
-    });
     expect(result).toStrictEqual({
-      body: "New installation detected. Runner groups created.",
+      body: "New installation detected. 'rapids-runners' group created.",
       statusCode: 200,
     });
   });
