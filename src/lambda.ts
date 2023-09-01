@@ -37,7 +37,7 @@ export const handler = async (
   const ghEvent = event.headers["X-GitHub-Event"] as string;
   const lambdaEvent = { "@gh_event": ghEvent, ...payload };
   const logger = makeLogger(lambdaEvent);
-  const runnerGroupName = "rapids-runners";
+  const runnerGroupName = "nvidia-runners";
   logger("start");
 
   if (ghEvent === "installation" && payload.action === "created") {
