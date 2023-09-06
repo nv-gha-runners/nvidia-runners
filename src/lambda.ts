@@ -3,6 +3,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { Octokit } from "@octokit/rest";
 import { createAppAuth } from "@octokit/auth-app";
 import { retry } from "@octokit/plugin-retry";
+import allowedOrgs from "./orgs";
 
 const makeLogger = (obj: any) => (msg: string) => {
   console.log(
@@ -42,17 +43,7 @@ export const handler = async (
 
   if (ghEvent === "installation" && payload.action === "created") {
     const resp = await authorizer({
-      allowedOrgs: [
-        "dask-contrib",
-        "dask",
-        "numba",
-        "nv-gha-runners",
-        "nv-legate",
-        "nv-morpheus",
-        "nvidia-merlin",
-        "nvidia",
-        "rapidsai",
-      ],
+      allowedOrgs,
       event,
     });
 
