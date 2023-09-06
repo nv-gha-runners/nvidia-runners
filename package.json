@@ -1,5 +1,5 @@
 {
-  "name": "rapids-runners",
+  "name": "nvidia-runners",
   "version": "1.0.0",
   "description": "GitHub App for provisioning self-hosted runners",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rapidsai/rapids-runners.git"
+    "url": "git+https://github.com/rapidsai/nvidia-runners.git"
   },
   "author": "AJ Schmidt <aschmidt@nvidia.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rapidsai/rapids-runners/issues"
+    "url": "https://github.com/rapidsai/nvidia-runners/issues"
   },
-  "homepage": "https://github.com/rapidsai/rapids-runners#readme",
+  "homepage": "https://github.com/rapidsai/nvidia-runners#readme",
   "dependencies": {
     "@octokit/auth-app": "^4.0.9",
     "@octokit/plugin-retry": "^4.1.3",

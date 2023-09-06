@@ -6,7 +6,7 @@ import { retry } from "@octokit/plugin-retry";
 
 const makeLogger = (obj: any) => (msg: string) => {
   console.log(
-    JSON.stringify({ "@msg": msg, "@app": "rapids-runners", ...obj })
+    JSON.stringify({ "@msg": msg, "@app": "nvidia-runners", ...obj })
   );
 };
 
@@ -37,7 +37,7 @@ export const handler = async (
   const ghEvent = event.headers["X-GitHub-Event"] as string;
   const lambdaEvent = { "@gh_event": ghEvent, ...payload };
   const logger = makeLogger(lambdaEvent);
-  const runnerGroupName = "rapids-runners";
+  const runnerGroupName = "nvidia-runners";
   logger("start");
 
   if (ghEvent === "installation" && payload.action === "created") {
