@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rapidsai/nvidia-runners.git"
+    "url": "git+https://github.com/nv-gha-runners/nvidia-runners.git"
   },
   "author": "AJ Schmidt <aschmidt@nvidia.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rapidsai/nvidia-runners/issues"
+    "url": "https://github.com/nv-gha-runners/nvidia-runners/issues"
   },
-  "homepage": "https://github.com/rapidsai/nvidia-runners#readme",
+  "homepage": "https://github.com/nv-gha-runners/nvidia-runners#readme",
   "dependencies": {
     "@octokit/auth-app": "^4.0.9",
     "@octokit/plugin-retry": "^4.1.3",
