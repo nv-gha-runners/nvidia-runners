@@ -22,6 +22,7 @@
 export default [
   "dask-contrib",
   "dask",
+  "nersc",
   "numba",
   "nv-gha-runners",
   "nv-legate",
