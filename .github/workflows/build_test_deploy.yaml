@@ -9,7 +9,7 @@ jobs:
   run:
     name: Deploy Application
     runs-on: ubuntu-latest
-    container: node:18 # keep version synced w/ serverless.yaml file
+    container: node:20 # keep version synced w/ serverless.yaml file
     steps:
       - name: Get AWS credentials
         if: inputs.deploy == true
