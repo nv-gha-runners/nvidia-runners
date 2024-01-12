@@ -25,6 +25,7 @@ export default [
   "nersc",
   "numba",
   "nv-gha-runners",
+  "nv-gha-runners-tf-test",
   "nv-legate",
   "nv-morpheus",
   "nvidia-merlin",
