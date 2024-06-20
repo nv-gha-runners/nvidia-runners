@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/nv-gha-runners/nvidia-runners#readme",
   "dependencies": {
-    "@octokit/auth-app": "^4.0.13",
-    "@octokit/plugin-retry": "^4.1.6",
-    "@octokit/rest": "^19.0.13",
+    "@octokit/auth-app": "^7.0.0",
+    "@octokit/plugin-retry": "^7.0.0",
+    "@octokit/rest": "^21.0.0",
     "webhook-authorizer": "github:nv-gha-runners/webhook-authorizer#9c0ca21ff4517d712e1ab3e25f7ff807d0f519da"
   },
   "devDependencies": {
